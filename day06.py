@@ -43,7 +43,8 @@ print("="*60)
 # Making Exception
 
 try:
-    raise Exception("쉬는 시간")              #  강제로 예외를 던지는 키워드 // 예외
+    #raise Exception("쉬는 시간")              #  강제로 예외를 던지는 키워드 // 예외
+    raise TypeError("타입 에러")
     expr = input('분자, 분모 입력(띄어쓰기로 구분):').split()
     print(int(expr[0]) / int(expr[1]))
 except ZeroDivisionError as err:
@@ -54,7 +55,7 @@ except ValueError as err:
 except IndexError as err:
     print(f"입력 값의 범위에 문제가 있습니다.({err})")
 except Exception as others:
-    print(f"예외 발생!({others})")
+    print(f"예외 발생!({others})")              #   Type Error가 Exception에 포함돼서 others에 설정한 "타입 에러" 가 할당돼서 출력
 else:                       #  예외가 발생하지 않았을 때 // while과는 같이 못 쓰는 듯
     print("프로그램 정상",end=' ')
 finally:                    #  예외 발생 여부와 상관없이 무조건 실행 // while하고는 안 써도 되는 거 같음
