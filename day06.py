@@ -1,74 +1,61 @@
 #Chapter9 Function - Generator
 
+#  Namespaces and Scope
 
-#  Decorator
-def document_it(func):
-    def new_function(*args,**kwargs):
-        print("Running function:", func.__name__)  #  실행 중인 함수의 이름 출력
-        print("Positional arguments:", args)  #  위치 기반 인수들, 튜플 출력
-        print("Keyword arguments:", kwargs)   #  키워드 기반 인수들, 딕셔너리 출력
-        result = func(*args,**kwargs)  #  결과=정의된 new_function의 결과
-        print("Result:", result)   #  결과를 출력
-        return result              #  결과를 return
-    return new_function            #  new_function을 return
+g=1     #  global variable
 
+def print_global():
+    # g=1   #  local variable
+    print(g)
+
+# print_global()   #  지역변수로 인식하니까 출력 오케이
+# print(g)        #  함수 영역에 g가 가려져서 출력 불가 - 에러 발생
 
 
-def add_ints(a,b):
-    return a + b
+def change_and_print_global():
+    global g        #  전역변수 g를 아래 프린트 g에 할당
+    print(g)
+    g =2/            #  지역변수로 g를 2에 할당 -> 아래 프린트 g에 할당됨
+    print(g)
 
-print(add_ints(3,5))
 
-cooler_add_ints=document_it(add_ints)   #  Decorator 수동 할당
-print(cooler_add_ints(3,5))
-#  출력 결과:
-#  Running fuction: add_ints
-#  Positional arguments: (3,5)
-#  Keyword arguments: {}
-#  Result 8
-#  8
+change_and_print_global()
+print(g)
 
-#------------------------------------------------------------
-#  @Decorator_name
-@document_it            #  def로 함수 만들기 이전에 @데코레이터 이름을 출력
-def substract_ints(a,b):
-    return a - b
-
-substract_ints(8,5)
-#  출력 결과:
-#  Running fuction: substract_ints
-#  Positional arguments: (8,5)
-#  Keyword arguments: {}
-#  Result 3
-#  8
-
-#------------------------------------------------------------------------
-
-def square_it(func):        #  result를 제곱하는 Decorator
-    def new_function(*args, **kwargs):
-        result = func(*args,**kwargs)
-        return result * result
-    return new_function
+print(locals())
+print(globals())
+print(__name__)
 
 print("="*60)
 
-@document_it
-@square_it
-def add_ints(a,b):
-    return a + b
+#  Recursion  재귀함수 - 자기 자신을 호출하는 함수 // inner함수와 다름
+def factorial_iter(n):
+    """
+    반복문을 사용한 팩토리얼 함수
+    :param n: n!
+    :return: integer 팩토리얼 계산 결과 값
+    """
+    result = 1
+    for k in range(1,n+1):
+        result = result * k
+    return result
 
-add_ints(3,5)
+print(factorial_iter(4))
 
-print('='*60)
+def factorial_recu(n):
+    """
+    재귀 함수를 사용한 팩토리얼 함수
+    :param n: n!
+    :return: 자기 자신을 호출 또는 1
+    """
+    if n != 1:
+        return factorial_recu(n-1)*n
+    elif n == 1 or n == 0:        #  끝나는 조건
+        return 1
+    elif n < 0:
+        return 0
 
-@square_it              #  순서에 따라 결과가 다르다
-@document_it
-def add_ints(a,b):
-    return a + b
-
-add_ints(3,5)
-
-
-print("="*60)
-
-
+print(factorial_iter(4))
+print(factorial_iter(0))
+print(factorial_iter(2))
+print(factorial_iter(-3))
