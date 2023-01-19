@@ -1,34 +1,5 @@
 #Chapter 10 객체와 클래스
 
-#  What is Object?
-#  객체는 데이터(변수, 속성-attribute)와 코드(함수, 메서드-method)를 포함하는 커스텀 자료구조
-#  ex) 도형을 그리라고 하면 여러 도형이 나옴 - 추상적임 // 삼각형을 그려라고 하면 삼각형을 그림 - 구체적인
-#  객체는 개별 사물을 나타내고, 해당 메서드는 다른 사물과 상호작용하는 방법을 정의한다.
-#  ex) 메서드= 잠을 자거나, 음식을 먹거나(사람마다 먹는게 다름)
-
-
-#  Class 선언하기 - single로 할 때는 괄호 없어도 되는데, 상속 받을 때는 괄호 안에 부모 class가 들어가야함
-class Cat:          #  클래스 생성
-    pass
-
-a_cat=Cat()         #  객체 생성
-another_cat=Cat()
-
-a_cat.age = 3
-a_cat.name = "Nero"
-a_cat.namesis = another_cat         # another_cat을 참조하고 있다...?
-
-#a_cat.namesis.name          #another_cat에 name이 Attribute 되지 않았다.
-a_cat.namesis = 'Navi'
-
-
-#  Method - 클래스 안에 있는 함수들 / 함수랑 비슷하다. 다만 특별한 방식으로 사용된다.
-#  Initialization - 초기화
-class Cat:
-    def __init__(self):         #  객체가 생성될 때 무조건 실행되는 코드
-        pass
-
-
 class Pokemon:
     def __init__(self):             #  객체가 생성될 때 무조건 실행되는 코드 / self는 자동으로 붙음
         print("포켓몬 객체 생성됨")
@@ -67,4 +38,10 @@ p2.info()
 #  Inheritance: 상속  강한 결속 관계를 맺어주는 '상속' / 부모 클래스가 가진 자원을 자식 클래스가 가질 수 있다
 #  상속의 가장 큰 장점 - 코드의 중복을 피할 수 있다.
 
+class Pikachu(Pokemon):             #  Pikachu가 Pokemon으로부터 상속을 받음
+    pass
 
+pi1 = Pikachu('피카츄','한지우', "50만 볼트/100만 볼트/번개")
+pi1.info()
+
+# Pikachu에는 아무것도 없는데, Pokemon 클래스에 있는 걸 이용  // 만약 복붙하면 중복된 코드가 발생
