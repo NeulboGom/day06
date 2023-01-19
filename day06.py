@@ -1,61 +1,61 @@
 #Chapter9 Function - Generator
 
-#  Namespaces and Scope
+# Asynchronous function
+'''
+#Exception
 
-g=1     #  global variable
+def div_calc(a,b):      #  나누기 프로그램
+    """
+    나누기 함수
+    :param a: 분자
+    :param b: 분모
+    :return: 계산결과
+    """
+    return a/b
 
-def print_global():
-    # g=1   #  local variable
-    print(g)
+print(div_calc(15,3))
+print(div_calc(15,0))       #ZeroDivisionError 발생
+'''
 
-# print_global()   #  지역변수로 인식하니까 출력 오케이
-# print(g)        #  함수 영역에 g가 가려져서 출력 불가 - 에러 발생
+#Try, Except로 예외 처리
 
-
-def change_and_print_global():
-    global g        #  전역변수 g를 아래 프린트 g에 할당
-    print(g)
-    g =2/            #  지역변수로 g를 2에 할당 -> 아래 프린트 g에 할당됨
-    print(g)
-
-
-change_and_print_global()
-print(g)
-
-print(locals())
-print(globals())
-print(__name__)
+while True:
+    try:
+        expr = input('분자, 분모 입력(띄어쓰기로 구분):').split()
+        print(int(expr[0]) / int(expr[1]))
+        break
+    except ZeroDivisionError as err:
+        #print(err) 혹은 f스트링
+        print(f"'0'은 분모가 될 수 없습니다.({err})")
+    except ValueError as err:
+        print(f"숫자를 입력하세요.({err})")
+    except IndexError as err:
+        print(f"입력 값의 범위에 문제가 있습니다.({err})")
+    except Exception as others:
+        print(f"예외 발생!({others})")
+    # else:                       #  예외가 발생하지 않았을 때 // while과는 같이 못 쓰는 듯
+    #     print("프로그램 정상",end=' ')
+    # finally:                    #  예외 발생 여부와 상관없이 무조건 실행 // while하고는 안 써도 되는 거 같음
+    #     print("종료")
 
 print("="*60)
 
-#  Recursion  재귀함수 - 자기 자신을 호출하는 함수 // inner함수와 다름
-def factorial_iter(n):
-    """
-    반복문을 사용한 팩토리얼 함수
-    :param n: n!
-    :return: integer 팩토리얼 계산 결과 값
-    """
-    result = 1
-    for k in range(1,n+1):
-        result = result * k
-    return result
+# Making Exception
 
-print(factorial_iter(4))
-
-def factorial_recu(n):
-    """
-    재귀 함수를 사용한 팩토리얼 함수
-    :param n: n!
-    :return: 자기 자신을 호출 또는 1
-    """
-    if n != 1:
-        return factorial_recu(n-1)*n
-    elif n == 1 or n == 0:        #  끝나는 조건
-        return 1
-    elif n < 0:
-        return 0
-
-print(factorial_iter(4))
-print(factorial_iter(0))
-print(factorial_iter(2))
-print(factorial_iter(-3))
+try:
+    raise Exception("쉬는 시간")              #  강제로 예외를 던지는 키워드 // 예외
+    expr = input('분자, 분모 입력(띄어쓰기로 구분):').split()
+    print(int(expr[0]) / int(expr[1]))
+except ZeroDivisionError as err:
+    #print(err) 혹은 f스트링
+    print(f"'0'은 분모가 될 수 없습니다.({err})")
+except ValueError as err:
+    print(f"숫자를 입력하세요.({err})")
+except IndexError as err:
+    print(f"입력 값의 범위에 문제가 있습니다.({err})")
+except Exception as others:
+    print(f"예외 발생!({others})")
+else:                       #  예외가 발생하지 않았을 때 // while과는 같이 못 쓰는 듯
+    print("프로그램 정상",end=' ')
+finally:                    #  예외 발생 여부와 상관없이 무조건 실행 // while하고는 안 써도 되는 거 같음
+    print("종료")
